@@ -1,6 +1,6 @@
 package com.yp.learnredis.jedis;
 
-import com.yp.redis.command.ListCommand;
+import com.yp.learnredis.ListCommand;
 
 import java.util.List;
 

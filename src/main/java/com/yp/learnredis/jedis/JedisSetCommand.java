@@ -2,6 +2,8 @@ package com.yp.learnredis.jedis;
 
 import com.yp.learnredis.SetCommand;
 
+import java.util.Set;
+
 public class JedisSetCommand extends JedisCommand implements SetCommand {
 
     public JedisSetCommand(String host, int port) {
@@ -21,5 +23,10 @@ public class JedisSetCommand extends JedisCommand implements SetCommand {
     @Override
     public boolean srem(String key, String value) {
         return execute(jedis->jedis.srem(key, value) > 0);
+    }
+
+    @Override
+    public Set<String> smembers(String key) {
+        return execute(jedis -> jedis.smembers(key));
     }
 }

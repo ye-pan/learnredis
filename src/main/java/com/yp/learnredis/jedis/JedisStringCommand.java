@@ -1,6 +1,6 @@
 package com.yp.learnredis.jedis;
 
-import com.yp.redis.command.StringCommand;
+import com.yp.learnredis.StringCommand;
 
 public class JedisStringCommand extends JedisCommand implements StringCommand {
 

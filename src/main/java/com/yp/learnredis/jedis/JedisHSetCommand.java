@@ -1,7 +1,6 @@
 package com.yp.learnredis.jedis;
 
-import com.yp.redis.command.HSetCommand;
-
+import com.yp.learnredis.HSetCommand;
 import java.util.Map;
 
 public class JedisHSetCommand extends JedisCommand implements HSetCommand {
@@ -16,8 +15,8 @@ public class JedisHSetCommand extends JedisCommand implements HSetCommand {
     }
 
     @Override
-    public boolean hset(String key, Map<String, String> map) {
-        return execute(jedis -> jedis.hset(key, map) > 0);
+    public void hmset(String key, Map<String, String> map) {
+        execute(jedis -> jedis.hmset(key, map));
     }
 
     @Override
@@ -28,5 +27,10 @@ public class JedisHSetCommand extends JedisCommand implements HSetCommand {
     @Override
     public boolean hdel(String cacheKey, String key) {
         return execute(jedis->jedis.hdel(cacheKey, key) > 0);
+    }
+
+    @Override
+    public String hget(String cacheKey, String key) {
+        return execute(jedis->jedis.hget(cacheKey, key));
     }
 }

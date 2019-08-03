@@ -1,6 +1,6 @@
 package com.yp.learnredis.jedis;
 
-import com.yp.redis.command.Command;
+import com.yp.learnredis.Command;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
