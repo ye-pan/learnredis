@@ -11,18 +11,18 @@ public class JedisSetCommand extends JedisCommand implements SetCommand {
     }
 
     @Override
-    public boolean  sadd(String key, String... values) {
-        return execute(jedis->jedis.sadd(key, values) > 0);
+    public boolean sadd(String key, String... values) {
+        return execute(jedis -> jedis.sadd(key, values) > 0);
     }
 
     @Override
     public boolean sismember(String key, String value) {
-        return execute(jedis->jedis.sismember(key, value));
+        return execute(jedis -> jedis.sismember(key, value));
     }
 
     @Override
     public boolean srem(String key, String value) {
-        return execute(jedis->jedis.srem(key, value) > 0);
+        return execute(jedis -> jedis.srem(key, value) > 0);
     }
 
     @Override

@@ -10,7 +10,7 @@ public class JedisStringCommand extends JedisCommand implements StringCommand {
 
     @Override
     public boolean set(String key, String value) {
-        return execute(jedis->{
+        return execute(jedis -> {
             String replyStatus = jedis.set(key, value);
             return REPLY_STATUS_OK.equalsIgnoreCase(replyStatus);
         });
@@ -30,7 +30,7 @@ public class JedisStringCommand extends JedisCommand implements StringCommand {
 
     @Override
     public String get(String key) {
-        return execute(jedis->jedis.get(key));
+        return execute(jedis -> jedis.get(key));
     }
 
     @Override
@@ -47,31 +47,31 @@ public class JedisStringCommand extends JedisCommand implements StringCommand {
 
     @Override
     public long incr(String key) {
-        return execute(jedis->jedis.incr(key));
+        return execute(jedis -> jedis.incr(key));
     }
 
     @Override
     public long incrBy(String key, int val) {
-        return execute(jedis->jedis.incrBy(key, val));
+        return execute(jedis -> jedis.incrBy(key, val));
     }
 
     @Override
     public long decr(String key) {
-        return execute(jedis->jedis.decr(key));
+        return execute(jedis -> jedis.decr(key));
     }
 
     @Override
     public long decrBy(String longValKey, int val) {
-        return execute(jedis->jedis.decrBy(longValKey, val));
+        return execute(jedis -> jedis.decrBy(longValKey, val));
     }
 
     @Override
     public boolean append(String key, String value) {
-        return execute(jedis->jedis.append(key, value) > 0);
+        return execute(jedis -> jedis.append(key, value) > 0);
     }
 
     @Override
     public String getRange(String key, int start, int end) {
-        return execute(jedis->jedis.getrange(key, start, end));
+        return execute(jedis -> jedis.getrange(key, start, end));
     }
 }

@@ -2,8 +2,10 @@ package com.yp.learnredis.jedis;
 
 import com.yp.learnredis.HSetCommand;
 import org.junit.Test;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import static org.junit.Assert.*;
 
 public class JedisHSetCommandTest {

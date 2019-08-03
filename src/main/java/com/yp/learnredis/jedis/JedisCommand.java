@@ -14,27 +14,27 @@ public class JedisCommand implements Command {
 
     @Override
     public boolean del(String key) {
-        return execute(jedis->jedis.del(key) > 0);
+        return execute(jedis -> jedis.del(key) > 0);
     }
 
     @Override
     public boolean expire(String key, int seconds) {
-        return execute(jedis->jedis.expire(key, seconds) > 0);
+        return execute(jedis -> jedis.expire(key, seconds) > 0);
     }
 
     @Override
     public long ttl(String key) {
-        return execute(jedis->jedis.ttl(key));
+        return execute(jedis -> jedis.ttl(key));
     }
 
     @Override
     public boolean expireat(String key, long timestamp) {
-        return execute(jedis->jedis.expireAt(key, timestamp) > 0);
+        return execute(jedis -> jedis.expireAt(key, timestamp) > 0);
     }
 
     @Override
     public long pttl(String key) {
-        return execute(jedis->jedis.pttl(key));
+        return execute(jedis -> jedis.pttl(key));
     }
 
     @Override

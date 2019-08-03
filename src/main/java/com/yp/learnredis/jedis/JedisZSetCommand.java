@@ -14,12 +14,12 @@ public class JedisZSetCommand extends JedisCommand implements ZSetCommand {
 
     @Override
     public boolean zadd(String key, double score, String value) {
-        return execute(jedis->jedis.zadd(key, score, value) > 0);
+        return execute(jedis -> jedis.zadd(key, score, value) > 0);
     }
 
     @Override
     public Set<String> zrange(String key, int start, int end) {
-        return execute(jedis->jedis.zrange(key, start, end));
+        return execute(jedis -> jedis.zrange(key, start, end));
     }
 
     @Override
@@ -27,7 +27,7 @@ public class JedisZSetCommand extends JedisCommand implements ZSetCommand {
         return execute(jedis ->
                 jedis.zrangeWithScores(key, start, end)
                         .stream()
-                        .map(tuple->new Member(tuple.getScore(), tuple.getElement()))
+                        .map(tuple -> new Member(tuple.getScore(), tuple.getElement()))
                         .collect(Collectors.toSet()));
     }
 

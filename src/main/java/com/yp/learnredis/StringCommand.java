@@ -2,6 +2,7 @@ package com.yp.learnredis;
 
 public interface StringCommand extends Command {
     String REPLY_STATUS_OK = "OK";
+
     boolean set(String key, String value);
 
     boolean set(String key, long value);

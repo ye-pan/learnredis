@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 
 public class JedisStringCommandTest {
     private StringCommand command = new JedisStringCommand(Remotes.HOST, Remotes.PORT);
+
     @Test
     public void testGetAndSet() {
         String key = "hello";
