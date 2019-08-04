@@ -3,6 +3,7 @@ package com.yp.learnredis.jedis;
 import com.yp.learnredis.Member;
 import com.yp.learnredis.ZSetCommand;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,5 +40,20 @@ public class JedisZSetCommand extends JedisCommand implements ZSetCommand {
     @Override
     public boolean zrem(String key, String value) {
         return execute(jedis -> jedis.zrem(key, value) > 0);
+    }
+
+    @Override
+    public double zscore(String key, String value) {
+        return execute(jedis -> jedis.zscore(key, value));
+    }
+
+    @Override
+    public void zincry(String key, String value, double score) {
+        execute(jedis -> jedis.zincrby(key, score, value));
+    }
+
+    @Override
+    public Set<String> zrevrange(String key, int start, int end) {
+        return execute(jedis -> jedis.zrevrange(key, start, end));
     }
 }

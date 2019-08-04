@@ -34,4 +34,9 @@ public class JedisHSetCommand extends JedisCommand implements HSetCommand {
     public String hget(String cacheKey, String key) {
         return execute(jedis -> jedis.hget(cacheKey, key));
     }
+
+    @Override
+    public void hincrby(String cacheKey, String key, long val) {
+        execute(jedis -> jedis.hincrBy(cacheKey, key, val));
+    }
 }

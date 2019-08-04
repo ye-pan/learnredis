@@ -6,10 +6,14 @@ import redis.clients.jedis.JedisPool;
 
 public class JedisCommand implements Command {
 
-    private JedisPool pool;
+    private final JedisPool pool;
 
     public JedisCommand(String host, int port) {
         pool = new JedisPool(host, port);
+    }
+
+    public JedisCommand(JedisPool pool) {
+        this.pool = pool;
     }
 
     @Override

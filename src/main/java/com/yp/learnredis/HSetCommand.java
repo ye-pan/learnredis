@@ -13,4 +13,6 @@ public interface HSetCommand extends Command {
     boolean hdel(String cacheKey, String key);
 
     String hget(String cacheKey, String key);
+
+    void hincrby(String cacheKey, String key, long val);
 }

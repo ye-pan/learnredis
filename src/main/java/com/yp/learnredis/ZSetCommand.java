@@ -1,5 +1,6 @@
 package com.yp.learnredis;
 
+import java.util.List;
 import java.util.Set;
 
 public interface ZSetCommand extends Command {
@@ -12,4 +13,10 @@ public interface ZSetCommand extends Command {
     Set<String> zrangeByScore(String key, double min, double max);
 
     boolean zrem(String key, String value);
+
+    double zscore(String key, String value);
+
+    void zincry(String key, String value, double score);
+
+    Set<String> zrevrange(String key, int start, int end);
 }
