@@ -4,6 +4,7 @@ import com.yp.learnredis.jedis.JedisHSetCommand;
 import com.yp.learnredis.jedis.JedisSetCommand;
 import com.yp.learnredis.jedis.JedisStringCommand;
 import com.yp.learnredis.jedis.JedisZSetCommand;
+import redis.clients.jedis.ZParams;
 
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +65,7 @@ public class Vote {
         return articleId;
     }
 
-    List<Map<String, String>> getArticles(String order, int page) {
+    public List<Map<String, String>> getArticles(String order, int page) {
         int start = (page - 1) * ARTICLES_PRE_PAGE;
         int end = start + ARTICLES_PRE_PAGE - 1;
 
@@ -75,6 +76,16 @@ public class Vote {
                 .collect(Collectors.toList());
     }
 
+    public void addRemoveGroups(Long articleId, List<String> toAdd, List<String> toRemove) {
+        String articleKey = articleKey(articleId);
+        toAdd.forEach(group -> setCommand.sadd(groupKey(group), articleKey));
+        toRemove.forEach(group -> setCommand.srem(groupKey(group), articleKey));
+    }
+
+    private String groupKey(String group) {
+        return "group:" + group;
+    }
+
     private String votedUserKey(Long articleId) {
         return "voted:" + articleId;
     }
@@ -83,4 +94,16 @@ public class Vote {
         return "article:" + articleId;
     }
 
+    public List<Map<String, String>> getGroupArticles(String group, String order, int page) {
+        String key = mergeGroupArticlesKeyResult(group, order);
+        if(!zSetCommand.exists(key)) {
+            zSetCommand.zinterstore(key, ZParams.Aggregate.MAX, groupKey(group), order);
+            zSetCommand.expire(key, 60);
+        }
+        return getArticles(key, page);
+    }
+
+    private String mergeGroupArticlesKeyResult(String group, String order) {
+        return order + group;
+    }
 }

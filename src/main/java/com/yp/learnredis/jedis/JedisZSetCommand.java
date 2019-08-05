@@ -2,6 +2,7 @@ package com.yp.learnredis.jedis;
 
 import com.yp.learnredis.Member;
 import com.yp.learnredis.ZSetCommand;
+import redis.clients.jedis.ZParams;
 
 import java.util.List;
 import java.util.Set;
@@ -55,5 +56,11 @@ public class JedisZSetCommand extends JedisCommand implements ZSetCommand {
     @Override
     public Set<String> zrevrange(String key, int start, int end) {
         return execute(jedis -> jedis.zrevrange(key, start, end));
+    }
+
+    @Override
+    public void zinterstore(String destKey, ZParams.Aggregate aggregateParam, String... values) {
+        ZParams params = new ZParams().aggregate(aggregateParam);
+        execute(jedis -> jedis.zinterstore(destKey, params, values));
     }
 }

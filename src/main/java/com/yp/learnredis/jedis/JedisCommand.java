@@ -51,6 +51,11 @@ public class JedisCommand implements Command {
         return execute(jedis -> jedis.pexpireAt(key, timestamp) > 0);
     }
 
+    @Override
+    public boolean exists(String key) {
+        return execute(jedis -> jedis.exists(key));
+    }
+
     protected <T> T execute(Callback<T> callback) {
         Jedis jedis = pool.getResource();
         try {
@@ -59,5 +64,4 @@ public class JedisCommand implements Command {
             jedis.close();
         }
     }
-
 }

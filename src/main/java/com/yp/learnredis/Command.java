@@ -14,4 +14,6 @@ public interface Command {
     boolean pexpire(String key, long milli);
 
     boolean pexpireat(String key, long timestamp);
+
+    boolean exists(String key);
 }

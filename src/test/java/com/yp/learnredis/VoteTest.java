@@ -3,6 +3,8 @@ package com.yp.learnredis;
 import com.yp.learnredis.jedis.Remotes;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -28,5 +30,17 @@ public class VoteTest {
     @Test
     public void testArticleVote() {
         vote.articleVote(1L, 2L);
+    }
+
+    @Test
+    public void testAddRemoveGroup() {
+        vote.addRemoveGroups(2L, List.of("sample"), List.of(""));
+    }
+
+    @Test
+    public void testGetGroupArticles() {
+        List<Map<String, String>> theGroupArticles = vote.getGroupArticles("sample", "score:", 1);
+        assertEquals(1, theGroupArticles.size());
+        theGroupArticles.forEach(System.out::println);
     }
 }
