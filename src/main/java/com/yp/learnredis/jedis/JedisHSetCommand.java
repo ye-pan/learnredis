@@ -26,8 +26,8 @@ public class JedisHSetCommand extends JedisCommand implements HSetCommand {
     }
 
     @Override
-    public boolean hdel(String cacheKey, String key) {
-        return execute(jedis -> jedis.hdel(cacheKey, key) > 0);
+    public boolean hdel(String cacheKey, String... keys) {
+        return execute(jedis -> jedis.hdel(cacheKey, keys) > 0);
     }
 
     @Override

@@ -10,7 +10,7 @@ public interface HSetCommand extends Command {
 
     Map<String, String> hgetall(String key);
 
-    boolean hdel(String cacheKey, String key);
+    boolean hdel(String cacheKey, String... key);
 
     String hget(String cacheKey, String key);
 

@@ -17,8 +17,8 @@ public class JedisCommand implements Command {
     }
 
     @Override
-    public boolean del(String key) {
-        return execute(jedis -> jedis.del(key) > 0);
+    public boolean del(String... keys) {
+        return execute(jedis -> jedis.del(keys) > 0);
     }
 
     @Override

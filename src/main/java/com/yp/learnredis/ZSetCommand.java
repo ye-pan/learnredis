@@ -13,7 +13,7 @@ public interface ZSetCommand extends Command {
 
     Set<String> zrangeByScore(String key, double min, double max);
 
-    boolean zrem(String key, String value);
+    boolean zrem(String key, String... value);
 
     double zscore(String key, String value);
 
@@ -30,4 +30,8 @@ public interface ZSetCommand extends Command {
      * @param values 求交集的集合
      */
     void zinterstore(String destKey, ZParams.Aggregate aggregateParam, String... values);
+
+    void zremrangeByRank(String key, int start, int end);
+
+    long zcard(String key);
 }

@@ -1,7 +1,7 @@
 package com.yp.learnredis;
 
 public interface Command {
-    boolean del(String key);
+    boolean del(String... key);
 
     boolean expire(String key, int seconds);
 

@@ -39,8 +39,8 @@ public class JedisZSetCommand extends JedisCommand implements ZSetCommand {
     }
 
     @Override
-    public boolean zrem(String key, String value) {
-        return execute(jedis -> jedis.zrem(key, value) > 0);
+    public boolean zrem(String key, String... values) {
+        return execute(jedis -> jedis.zrem(key, values) > 0);
     }
 
     @Override
@@ -62,5 +62,15 @@ public class JedisZSetCommand extends JedisCommand implements ZSetCommand {
     public void zinterstore(String destKey, ZParams.Aggregate aggregateParam, String... values) {
         ZParams params = new ZParams().aggregate(aggregateParam);
         execute(jedis -> jedis.zinterstore(destKey, params, values));
+    }
+
+    @Override
+    public void zremrangeByRank(String key, int start, int end) {
+        execute(jedis -> jedis.zremrangeByRank(key, start, end));
+    }
+
+    @Override
+    public long zcard(String key) {
+        return execute(jedis -> jedis.zcard(key));
     }
 }
