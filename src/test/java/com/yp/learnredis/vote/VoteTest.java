@@ -1,10 +1,9 @@
-package com.yp.learnredis;
+package com.yp.learnredis.vote;
 
 import com.yp.learnredis.jedis.Remotes;
+import com.yp.learnredis.vote.Vote;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
