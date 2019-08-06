@@ -42,7 +42,7 @@ public class Vote {
         if(zSetCommand.zscore("time:", articleKey) < cutoff) {
             return;
         }
-        if(setCommand.sadd(votedUserKey(articleId), userId.toString())) {
+        if(setCommand.sadd(votedUserKey(articleId), userId.toString()) == 1) {
             zSetCommand.zincry("score:", articleKey, VOTE_SCORE);
             hSetCommand.hincrby(articleKey, "votes", 1);
         }

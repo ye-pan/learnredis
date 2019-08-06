@@ -2,7 +2,9 @@ package com.yp.learnredis.jedis;
 
 import com.yp.learnredis.HSetCommand;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class JedisHSetCommand extends JedisCommand implements HSetCommand {
 
@@ -16,8 +18,11 @@ public class JedisHSetCommand extends JedisCommand implements HSetCommand {
     }
 
     @Override
-    public void hmset(String key, Map<String, String> map) {
-        execute(jedis -> jedis.hmset(key, map));
+    public boolean hmset(String key, Map<String, String> map) {
+        return execute(jedis -> {
+            String replyStatusCode = jedis.hmset(key, map);
+            return STATUS_CODE_OK.equalsIgnoreCase(replyStatusCode);
+        });
     }
 
     @Override
@@ -26,8 +31,8 @@ public class JedisHSetCommand extends JedisCommand implements HSetCommand {
     }
 
     @Override
-    public boolean hdel(String cacheKey, String... keys) {
-        return execute(jedis -> jedis.hdel(cacheKey, keys) > 0);
+    public long hdel(String cacheKey, String... keys) {
+        return execute(jedis -> jedis.hdel(cacheKey, keys));
     }
 
     @Override
@@ -36,7 +41,27 @@ public class JedisHSetCommand extends JedisCommand implements HSetCommand {
     }
 
     @Override
-    public void hincrby(String cacheKey, String key, long val) {
-        execute(jedis -> jedis.hincrBy(cacheKey, key, val));
+    public long hincrby(String cacheKey, String key, long val) {
+        return execute(jedis -> jedis.hincrBy(cacheKey, key, val));
+    }
+
+    @Override
+    public List<String> hmget(String cacheKey, String... keys) {
+        return execute(jedis -> jedis.hmget(cacheKey, keys));
+    }
+
+    @Override
+    public long hlen(String cacheKey) {
+        return execute(jedis -> jedis.hlen(cacheKey));
+    }
+
+    @Override
+    public Set<String> hkeys(String cacheKey) {
+        return execute(jedis -> jedis.hkeys(cacheKey));
+    }
+
+    @Override
+    public boolean hexists(String cacheKey, String key) {
+        return execute(jedis -> jedis.hexists(cacheKey, key));
     }
 }

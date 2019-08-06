@@ -21,9 +21,15 @@ public interface StringCommand extends Command {
 
     long decr(String key);
 
-    long decrBy(String longValKey, int val);
+    long decrBy(String key, int val);
 
-    boolean append(String key, String value);
+    long append(String key, String value);
 
     String getRange(String key, int start, int end);
+
+    double incrByFloat(String key, double val);
+
+    long setRange(String key, int index, String str);
+
+    boolean setbit(String key, int offset, boolean val);
 }

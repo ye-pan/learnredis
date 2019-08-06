@@ -4,7 +4,9 @@ import com.yp.learnredis.HSetCommand;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -25,12 +27,48 @@ public class JedisHSetCommandTest {
         map = command.hgetall(cacheKey);
         assertEquals(3, map.size());
 
-        boolean r = command.hdel(cacheKey, "sub-key2");
-        assertTrue(r);
+        long r = command.hdel(cacheKey, "sub-key2");
+        assertEquals(1, r);
         r = command.hdel(cacheKey, "sub-key2");
-        assertFalse(r);
+        assertEquals(0, r);
 
         String val = command.hget(cacheKey, "sub-key1");
         assertEquals("value1", val);
+    }
+
+    @Test
+    public void testHSetOp() {
+        String cacheKey = "hash-key";
+        command.del(cacheKey);
+        Map<String, String> map = new HashMap<>();
+        map.put("k1", "v1");
+        map.put("k2", "v2");
+        map.put("k3", "v3");
+        boolean r = command.hmset(cacheKey, map);
+        assertTrue(r);
+
+        List<String> list = command.hmget(cacheKey, "k2", "k3");
+        assertEquals(List.of("v2", "v3"), list);
+        long v = command.hlen(cacheKey);
+        assertEquals(3, v);
+        command.hdel(cacheKey, "k1", "k3");
+
+
+    }
+
+    @Test
+    public void testHSetSOp() {
+        String cacheKey = "hash-key";
+        command.del(cacheKey);
+        Map<String, String> map = new HashMap<>();
+        map.put("short", "hello");
+        map.put("long", "1000");
+        command.hmset(cacheKey, map);
+        Set<String> set = command.hkeys(cacheKey);
+        assertEquals(Set.of("long", "short"), set);
+        boolean r = command.hexists(cacheKey, "num");
+        assertFalse(r);
+        long v = command.hincrby(cacheKey, "num", 1);
+        assertEquals(1, v);
     }
 }

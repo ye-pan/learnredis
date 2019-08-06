@@ -11,8 +11,8 @@ public class JedisSetCommand extends JedisCommand implements SetCommand {
     }
 
     @Override
-    public boolean sadd(String key, String... values) {
-        return execute(jedis -> jedis.sadd(key, values) > 0);
+    public long sadd(String key, String... values) {
+        return execute(jedis -> jedis.sadd(key, values));
     }
 
     @Override
@@ -21,12 +21,37 @@ public class JedisSetCommand extends JedisCommand implements SetCommand {
     }
 
     @Override
-    public boolean srem(String key, String value) {
-        return execute(jedis -> jedis.srem(key, value) > 0);
+    public long srem(String key, String... value) {
+        return execute(jedis -> jedis.srem(key, value));
     }
 
     @Override
     public Set<String> smembers(String key) {
         return execute(jedis -> jedis.smembers(key));
+    }
+
+    @Override
+    public long scard(String key) {
+        return execute(jedis -> jedis.scard(key));
+    }
+
+    @Override
+    public long smove(String srcKey, String destKey, String val) {
+        return execute(jedis -> jedis.smove(srcKey, destKey, val));
+    }
+
+    @Override
+    public Set<String> sdiff(String... keys) {
+        return execute(jedis -> jedis.sdiff(keys));
+    }
+
+    @Override
+    public Set<String> sinter(String... keys) {
+        return execute(jedis -> jedis.sinter(keys));
+    }
+
+    @Override
+    public Set<String> sunion(String... keys) {
+        return execute(jedis -> jedis.sunion(keys));
     }
 }

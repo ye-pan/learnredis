@@ -1,6 +1,8 @@
 package com.yp.learnredis;
 
 public interface Command {
+    String STATUS_CODE_TRUE = "True";
+    String STATUS_CODE_OK = "OK";
     boolean del(String... key);
 
     boolean expire(String key, int seconds);

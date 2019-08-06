@@ -2,6 +2,9 @@ package com.yp.learnredis;
 
 import com.yp.learnredis.jedis.JedisHSetCommand;
 import com.yp.learnredis.jedis.JedisZSetCommand;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class LoginToken {
@@ -41,12 +44,28 @@ public class LoginToken {
             }
             int end = Math.min(size - LIMIT, 100);
             Set<String> tokens = zSetCommand.zrange("recent", 0, end - 1);
-            String[] sessionKeys = new String[tokens.size()];
-            tokens.toArray(sessionKeys);
-            zSetCommand.del(sessionKeys);
-            hSetCommand.hdel("login:", sessionKeys);
-            zSetCommand.zrem("recent:", sessionKeys);
+            List<String> sessionKeys = new ArrayList<>();
+            tokens.forEach(token -> {
+                sessionKeys.add(userViewedKey(token));
+                sessionKeys.add(cartKey(token));
+            });
+            String[] delKeys = sessionKeys.toArray(new String[]{});
+            zSetCommand.del(delKeys);
+            hSetCommand.hdel("login:", delKeys);
+            zSetCommand.zrem("recent:", delKeys);
         }
+    }
+
+    public void addToCart(String token, String item, int count) {
+        if(count <= 0) {
+            hSetCommand.hdel(cartKey(token), item);
+        } else {
+            hSetCommand.hset(cartKey(token), item, String.valueOf(count));
+        }
+    }
+
+    private String cartKey(String token) {
+        return "cart:" + token;
     }
 
     private String userViewedKey(String token) {

@@ -61,17 +61,32 @@ public class JedisStringCommand extends JedisCommand implements StringCommand {
     }
 
     @Override
-    public long decrBy(String longValKey, int val) {
-        return execute(jedis -> jedis.decrBy(longValKey, val));
+    public long decrBy(String key, int val) {
+        return execute(jedis -> jedis.decrBy(key, val));
     }
 
     @Override
-    public boolean append(String key, String value) {
-        return execute(jedis -> jedis.append(key, value) > 0);
+    public long append(String key, String value) {
+        return execute(jedis -> jedis.append(key, value));
     }
 
     @Override
     public String getRange(String key, int start, int end) {
         return execute(jedis -> jedis.getrange(key, start, end));
+    }
+
+    @Override
+    public double incrByFloat(String key, double val) {
+        return execute(jedis -> jedis.incrByFloat(key, val));
+    }
+
+    @Override
+    public long setRange(String key, int index, String str) {
+        return execute(jedis -> jedis.setrange(key, index, str));
+    }
+
+    @Override
+    public boolean setbit(String key, int offset, boolean val) {
+        return execute(jedis -> jedis.setbit(key, offset, val));
     }
 }
