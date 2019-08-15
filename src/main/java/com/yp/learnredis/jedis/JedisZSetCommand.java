@@ -5,6 +5,7 @@ import com.yp.learnredis.ZSetCommand;
 import redis.clients.jedis.ZParams;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -49,8 +50,8 @@ public class JedisZSetCommand extends JedisCommand implements ZSetCommand {
     }
 
     @Override
-    public void zincry(String key, String value, double score) {
-        execute(jedis -> jedis.zincrby(key, score, value));
+    public double zincry(String key, String value, double score) {
+        return execute(jedis -> jedis.zincrby(key, score, value));
     }
 
     @Override
@@ -59,9 +60,9 @@ public class JedisZSetCommand extends JedisCommand implements ZSetCommand {
     }
 
     @Override
-    public void zinterstore(String destKey, ZParams.Aggregate aggregateParam, String... values) {
+    public long zinterstore(String destKey, ZParams.Aggregate aggregateParam, String... values) {
         ZParams params = new ZParams().aggregate(aggregateParam);
-        execute(jedis -> jedis.zinterstore(destKey, params, values));
+        return execute(jedis -> jedis.zinterstore(destKey, params, values));
     }
 
     @Override
@@ -72,5 +73,26 @@ public class JedisZSetCommand extends JedisCommand implements ZSetCommand {
     @Override
     public long zcard(String key) {
         return execute(jedis -> jedis.zcard(key));
+    }
+
+    @Override
+    public long zadd(String key, Map<String, Double> map) {
+        return execute(jedis -> jedis.zadd(key, map));
+    }
+
+    @Override
+    public long zcount(String key, double min, double max) {
+        return execute(jedis -> jedis.zcount(key, min, max));
+    }
+
+    @Override
+    public long zrank(String key, String member) {
+        return execute(jedis -> jedis.zrank(key, member));
+    }
+
+    @Override
+    public long zunionstore(String destKey, ZParams.Aggregate aggregateParam, String... sourceKeys) {
+        ZParams params = new ZParams().aggregate(aggregateParam);
+        return execute(jedis -> jedis.zunionstore(destKey, params, sourceKeys));
     }
 }

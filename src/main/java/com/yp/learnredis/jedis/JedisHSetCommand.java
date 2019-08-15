@@ -64,4 +64,9 @@ public class JedisHSetCommand extends JedisCommand implements HSetCommand {
     public boolean hexists(String cacheKey, String key) {
         return execute(jedis -> jedis.hexists(cacheKey, key));
     }
+
+    @Override
+    public double hincrByFloat(String cacheKey, String key, double val) {
+        return execute(jedis -> jedis.hincrByFloat(cacheKey, key, val));
+    }
 }

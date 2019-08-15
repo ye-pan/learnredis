@@ -70,5 +70,7 @@ public class JedisHSetCommandTest {
         assertFalse(r);
         long v = command.hincrby(cacheKey, "num", 1);
         assertEquals(1, v);
+        double floatVal = command.hincrByFloat(cacheKey, "floatNum", 1.1D);
+        assertEquals(1.1, floatVal, 0);
     }
 }

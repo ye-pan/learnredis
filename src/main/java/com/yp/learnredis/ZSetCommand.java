@@ -2,6 +2,7 @@ package com.yp.learnredis;
 
 import redis.clients.jedis.ZParams;
 
+import java.util.Map;
 import java.util.Set;
 
 public interface ZSetCommand extends Command {
@@ -17,7 +18,7 @@ public interface ZSetCommand extends Command {
 
     double zscore(String key, String value);
 
-    void zincry(String key, String value, double score);
+    double zincry(String key, String value, double score);
 
     Set<String> zrevrange(String key, int start, int end);
 
@@ -29,9 +30,17 @@ public interface ZSetCommand extends Command {
      *                       如果使用参数MIN或者MAX，结果集就是所有集合中元素最小或最大的元素。
      * @param values 求交集的集合
      */
-    void zinterstore(String destKey, ZParams.Aggregate aggregateParam, String... values);
+    long zinterstore(String destKey, ZParams.Aggregate aggregateParam, String... values);
 
     void zremrangeByRank(String key, int start, int end);
 
     long zcard(String key);
+
+    long zadd(String key, Map<String, Double> map);
+
+    long zcount(String key, double min, double max);
+
+    long zrank(String key, String member);
+
+    long zunionstore(String destKey, ZParams.Aggregate aggregateParam, String... sourceKeys);
 }

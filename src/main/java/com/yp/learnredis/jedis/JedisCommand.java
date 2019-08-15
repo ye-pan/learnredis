@@ -56,6 +56,11 @@ public class JedisCommand implements Command {
         return execute(jedis -> jedis.exists(key));
     }
 
+    @Override
+    public void persist(String key) {
+        execute(jedis -> jedis.persist(key));
+    }
+
     protected <T> T execute(Callback<T> callback) {
         Jedis jedis = pool.getResource();
         try {

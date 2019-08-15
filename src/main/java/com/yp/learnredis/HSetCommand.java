@@ -25,4 +25,6 @@ public interface HSetCommand extends Command {
     Set<String> hkeys(String cacheKey);
 
     boolean hexists(String cacheKey, String key);
+
+    double hincrByFloat(String cacheKey, String key, double val);
 }
